@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterOutlet } from '@angular/router';
 import { NavbarComponent } from './components/navbar/navbar.component';
@@ -14,8 +14,9 @@ import { BtnUpComponent } from './components/btn-up/btn-up.component';
     BtnUpComponent
   ],
   templateUrl: './app.component.html',
-  styleUrl: './app.component.css'
+  styles: ``
 })
 export class AppComponent {
   title = 'Guias Juegos';
+
 }
