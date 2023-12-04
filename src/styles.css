@@ -1,1 +1,23 @@
-/* You can add global styles to this file, and also import other style files */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@font-face {
+  font-family: 'Custom';
+  src: url('assets/fonts/Inter-SemiBold.ttf');
+}
+
+@media (width < 600px){
+  html {
+    font-size: 14px;
+  }
+}
+
+html {
+  font-family: 'Custom';
+}
+
+.flip_pokemon {
+  -webkit-transform: scaleX(-1);
+  transform: scaleX(-1);
+}
