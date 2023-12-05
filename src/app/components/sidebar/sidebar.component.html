@@ -1,1 +1,23 @@
-<p>sidebar works!</p>
+@if (juegos.length === 0) {
+<app-loading/>
+} @else {
+<ul class="bg-base-100 h-full menu menu-xs pr-0">
+  @for (juego of juegos; track juego.id) {
+  <li class='mb-2'>
+    <a href="#" rel="preconnect">
+      <div class="avatar grid place-items-center">
+        <div ng class="w-20 h-20 rounded-xl shadow-md">
+          <img 
+            class="img_side_bar"
+            height="250"
+            width="250"
+            [alt]="juego.nombre"
+          >
+        </div>
+        <p>{{ juego.nombre }}</p>
+      </div>
+    </a>
+  </li>
+  }
+</ul>
+}
