@@ -18,6 +18,7 @@ npm install -D tailwindcss postcss autoprefixer
 npx tailwindcss init
 npm i -D daisyui@latest
 ```
+
 * in the tailwind.config.js file add...
 ```
 module.exports = {
@@ -29,6 +30,7 @@ module.exports = {
   ],
   ...
 ```
+
 * in the styles.css file add directives
 ```
 @tailwind base;
@@ -44,7 +46,7 @@ ng g s serv_name  //Create Services
 ng g m modu_name  //Create Modules
 ```
 
-<br>
+<hr>
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 17.0.3.
 

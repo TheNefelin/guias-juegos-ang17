@@ -5,7 +5,7 @@
     <ul class="bg-base-100 h-full menu menu-xs pr-0">
       @for (juego of juegos; track juego.id) {
       <li class='mb-2'>
-        <a href="#">
+        <a [routerLink]="['/game/', juego.id]">
           <div class="avatar grid place-items-center">
             <div ng class="w-20 h-20 rounded-xl shadow-md">
               <img 

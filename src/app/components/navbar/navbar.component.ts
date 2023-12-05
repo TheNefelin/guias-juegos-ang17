@@ -1,10 +1,14 @@
 import { Component } from '@angular/core';
 import { BtnPokemonComponent } from '../btn-pokemon/btn-pokemon.component';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-navbar',
   standalone: true,
-  imports: [ BtnPokemonComponent ],
+  imports: [ 
+    RouterLink,
+    BtnPokemonComponent 
+  ],
   templateUrl: './navbar.component.html',
   styles: ``
 })
