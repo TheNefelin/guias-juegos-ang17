@@ -10,7 +10,15 @@ module.exports = {
     require("daisyui")
   ],
   daisyui: {
-    themes: ["night", "winter"],
+    themes: [
+      {
+        night: {
+          ...require("daisyui/src/theming/themes")["night"],
+          "base-200": "#05080F",
+        }
+      },
+      "winter"
+    ],
   },
 }
 

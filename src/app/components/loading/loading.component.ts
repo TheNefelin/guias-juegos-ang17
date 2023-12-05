@@ -5,7 +5,7 @@ import { Component } from '@angular/core';
   standalone: true,
   imports: [],
   template: `
-    <div class='grid place-items-center'>
+    <div class='m-8 grid place-items-center'>
       <span class="loading loading-ring loading-lg"></span>
     </div>
   `,

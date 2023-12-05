@@ -1,24 +1,26 @@
-@if (juegos.length === 0) {
-<app-loading/>
-} @else {
-<ul class="bg-base-100 h-full menu menu-xs pr-0">
-  @for (juego of juegos; track juego.id) {
-  <li class='mb-2'>
-    <a href="#">
-      <div class="avatar grid place-items-center">
-        <div ng class="w-20 h-20 rounded-xl shadow-md">
-          <img 
-            class="img_side_bar"
-            height="250"
-            width="250"
-            [ngSrc]="juego.img_cover"
-            [alt]="juego.nombre"
-          >
-        </div>
-        <p>{{ juego.nombre }}</p>
-      </div>
-    </a>
-  </li>
-  }
-</ul>
-}
+<span id="side_bar">
+  @if (juegos.length === 0) {
+    <app-loading/>
+    } @else {
+    <ul class="bg-base-100 h-full menu menu-xs pr-0">
+      @for (juego of juegos; track juego.id) {
+      <li class='mb-2'>
+        <a href="#">
+          <div class="avatar grid place-items-center">
+            <div ng class="w-20 h-20 rounded-xl shadow-md">
+              <img 
+                height="250"
+                width="250"
+                [ngSrc]="juego.img_cover"
+                [alt]="juego.nombre"
+                [loading]="'lazy'"
+              >
+            </div>
+            <p>{{ juego.nombre }}</p>
+          </div>
+        </a>
+      </li>
+      }
+    </ul>
+    }    
+</span>

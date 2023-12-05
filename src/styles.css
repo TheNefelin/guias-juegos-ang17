@@ -3,8 +3,13 @@
 @tailwind utilities;
 
 @font-face {
-  font-family: 'Custom';
+  font-family: 'SemiBold';
   src: url('assets/fonts/Inter-SemiBold.ttf');
+}
+
+@font-face {
+  font-family: 'Regular';
+  src: url('assets/fonts/Inter-Regular.ttf');
 }
 
 @media (width < 600px){
@@ -14,7 +19,11 @@
 }
 
 html {
-  font-family: 'Custom';
+  font-family: 'SemiBold';
+}
+
+p {
+  font-family: 'Regular';
 }
 
 .flip_pokemon {

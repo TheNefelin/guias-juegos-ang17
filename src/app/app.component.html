@@ -1,9 +1,9 @@
 <app-navbar/>
 
-<section>
+<section class="flex mt-4">
   <app-sidebar [juegos]="dataJuegos"/>
+  <router-outlet></router-outlet>
 </section>
 
 <app-btn-up/>
 
-<router-outlet></router-outlet>

@@ -24,15 +24,14 @@ import { Juego } from './interfaces/juego';
 export class AppComponent implements OnInit {
   title = 'Guias Juegos';
   dataJuegos: Juego[] = []
-
-  httpClient = inject(HttpClient)
+  #httpClient = inject(HttpClient)
 
   ngOnInit(): void {
     this.getJuegos();
   }
 
   getJuegos() {
-    this.httpClient
+    this.#httpClient
     .get("https://bsite.net/metalflap/gj_juegos")
     .subscribe((data: any) => {
       this.dataJuegos = data;

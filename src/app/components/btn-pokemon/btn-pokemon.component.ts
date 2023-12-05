@@ -6,6 +6,7 @@ import { Component } from '@angular/core';
   imports: [],
   template: `
     <button
+      (click)="handle_click()"
       class='bg-base-100/10 rounded-full backdrop-blur-sm fixed z-10 flex justify-center w-20'>
       <img
         class="m-0 p-0 flip_pokemon"
@@ -17,5 +18,8 @@ import { Component } from '@angular/core';
   styles: ``
 })
 export class BtnPokemonComponent {
-
+  handle_click() {
+    const sidebar = document.querySelector("#side_bar")
+    sidebar?.classList.toggle("hidden")
+  }
 }
