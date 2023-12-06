@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { LoadingComponent } from '../loading/loading.component';
 import { NgOptimizedImage } from '@angular/common';
 import { RouterLink } from '@angular/router';
+import { LoadingComponent } from '../loading/loading.component';
 import { Juego } from '../../interfaces/juego';
 import { DataService } from '../../service/data.service';
 import { JuegoBackground } from '../../interfaces/juego-background';
@@ -34,39 +34,34 @@ export class SidebarComponent implements OnInit {
   constructor(private data_service: DataService) {}
 
   ngOnInit(): void {
-    this.data_service.getAllGames().subscribe((data: Juego[]) => {
+    this.data_service.getGames_All().subscribe((data: Juego[]) => {
       this.juegos = data
       console.log(this.juegos)
     })
 
-    this.data_service.getAllGame_Background().subscribe((data: JuegoBackground[]) => {
-      this.juego_background = data
-      console.log(this.juego_background)
-    })
+    // this.data_service.getAllGame_Guia().subscribe((data: JuegoGuia[]) => {
+    //   this.juego_guia = data
+    //   console.log(this.juego_guia)
+    // })
 
-    this.data_service.getAllGame_Guia().subscribe((data: JuegoGuia[]) => {
-      this.juego_guia = data
-      console.log(this.juego_guia)
-    })
+    // this.data_service.getAllGame_Guia_Aventura().subscribe((data: JuegoGuiaAventura[]) => {
+    //   this.juego_guia_aventura = data
+    //   console.log(this.juego_guia_aventura)
+    // })
 
-    this.data_service.getAllGame_Guia_Aventura().subscribe((data: JuegoGuiaAventura[]) => {
-      this.juego_guia_aventura = data
-      console.log(this.juego_guia_aventura)
-    })
+    // this.data_service.getAllGame_Guia_Aventura_Img().subscribe((data: JuegoGuiaAventuraImg[]) => {
+    //   this.juego_guia_aventura_img = data
+    //   console.log(this.juego_guia_aventura_img)
+    // })
 
-    this.data_service.getAllGame_Guia_Aventura_Img().subscribe((data: JuegoGuiaAventuraImg[]) => {
-      this.juego_guia_aventura_img = data
-      console.log(this.juego_guia_aventura_img)
-    })
+    // this.data_service.getAllGame_Guia_Fuente().subscribe((data: JuegoGuiaFuente[]) => {
+    //   this.juego_guia_fuente = data
+    //   console.log(this.juego_guia_fuente)
+    // })
 
-    this.data_service.getAllGame_Guia_Fuente().subscribe((data: JuegoGuiaFuente[]) => {
-      this.juego_guia_fuente = data
-      console.log(this.juego_guia_fuente)
-    })
-
-    this.data_service.getAllGame_Guia_Personaje().subscribe((data: JuegoGuiaPersonaje[]) => {
-      this.juego_guia_personaje = data
-      console.log(this.juego_guia_personaje)
-    })
+    // this.data_service.getAllGame_Guia_Personaje().subscribe((data: JuegoGuiaPersonaje[]) => {
+    //   this.juego_guia_personaje = data
+    //   console.log(this.juego_guia_personaje)
+    // })
   }
 }

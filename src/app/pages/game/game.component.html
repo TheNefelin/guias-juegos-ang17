@@ -1,1 +1,31 @@
-<p>game works!</p>
+ @if (juego_deta.length === 0) {
+
+<app-loading />
+
+} @else {
+
+<article class='mx-2'>
+  <h1 class='card-body card-title bg-base-200 uppercase shadow-xl'>{{ juego_deta[0].nombre }}</h1>
+
+  <div class='my-2'>
+    <a class='btn btn-ghost uppercase' href>Juego</a>
+
+    @if (juego_deta[0].cant_guias) {
+    <a class='btn btn-ghost uppercase' href>Guia Time Line</a>
+    }
+
+    @if (juego_deta[0].cant_personaes) {
+    <a class='btn btn-ghost uppercase' href>Personajes</a>
+    }
+
+    @if (juego_deta[0].cant_fuentes) {
+    <a class='btn btn-ghost uppercase' href>Fuentes</a>
+    }
+  </div>
+
+  <p class='indent-8 p-4 bg-base-200 shadow-md mb-4'>{{ juego_deta[0].descripcion }}</p>
+
+  <router-outlet></router-outlet>
+</article>
+
+}

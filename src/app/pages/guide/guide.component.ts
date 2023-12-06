@@ -5,7 +5,7 @@ import { Component } from '@angular/core';
   standalone: true,
   imports: [],
   templateUrl: './guide.component.html',
-  styleUrl: './guide.component.css'
+  styles: ``
 })
 export class GuideComponent {
 

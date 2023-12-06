@@ -8,17 +8,22 @@ import { JuegoGuiaFuente } from '../interfaces/juego-guia-fuente';
 import { JuegoGuiaPersonaje } from '../interfaces/juego-guia-personaje';
 import { JuegoGuiaAventura } from '../interfaces/juego-guia-aventura';
 import { JuegoGuiaAventuraImg } from '../interfaces/juego-guia-aventura-img';
+import { JuegoDeta } from '../interfaces/juego-deta';
 
 @Injectable({
   providedIn: 'root'
 })
 export class DataService {
   #apiUrl = "https://bsite.net/metalflap";
-  
-  constructor(private http: HttpClient) { }
 
-  getAllGames(): Observable<Juego[]> {
+  constructor(private http: HttpClient) {}
+
+  getGames_All(): Observable<Juego[]> {
     return this.http.get<Juego[]>(this.#apiUrl + "/gj_juegos");
+  }
+
+  getGames_ById(id: number): Observable<JuegoDeta[]> {
+    return this.http.get<JuegoDeta[]>(`${this.#apiUrl}/gj_juegos/${id}`);
   }
 
   getAllGame_Background(): Observable<JuegoBackground[]> {
