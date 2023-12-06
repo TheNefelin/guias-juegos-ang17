@@ -1,5 +1,5 @@
 export interface JuegoBackground {
   id: number,
-  nombre: string,
+  img_url: string,
   id_juego: number,
 }

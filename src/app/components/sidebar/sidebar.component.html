@@ -1,7 +1,10 @@
 <span id="side_bar">
   @if (juegos.length === 0) {
-  <app-loading />
+
+  <app-loading/>
+
   } @else {
+
   <ul class="bg-base-100 h-full menu menu-xs pr-0">
     @for (juego of juegos; track juego.id) {
     <li class='mb-2'>
@@ -9,17 +12,20 @@
         <div class="avatar grid place-items-center">
           <div ng class="w-20 h-20 rounded-xl shadow-md">
             <img
+              class="img_cover_background"
+              ngSrc={{juego.img_cover}}
+              alt={{juego.nombre}}
               height="250"
               width="250"
-              [ngSrc]="juego.img_cover"
-              [alt]="juego.nombre"
-              [loading]="'lazy'">
+              priority
+            >
           </div>
-          <p>{{ juego.nombre }}</p>
+          <p>{{juego.nombre}}</p>
         </div>
       </a>
     </li>
     }
   </ul>
   }
+
 </span>

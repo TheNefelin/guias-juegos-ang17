@@ -34,7 +34,7 @@ export class SidebarComponent implements OnInit {
   constructor(private data_service: DataService) {}
 
   ngOnInit(): void {
-    this.data_service.getGames_All().subscribe((data: Juego[]) => {
+    this.data_service.getGame_All().subscribe((data: Juego[]) => {
       this.juegos = data
       console.log(this.juegos)
     })

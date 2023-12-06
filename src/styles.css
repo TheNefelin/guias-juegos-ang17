@@ -20,13 +20,31 @@
 
 html {
   font-family: 'SemiBold';
+  scroll-behavior: smooth;
 }
 
-p {
+body::-webkit-scrollbar{
+  display: none;
+}
+
+
+p, a {
   font-family: 'Regular';
 }
 
 .flip_pokemon {
   -webkit-transform: scaleX(-1);
   transform: scaleX(-1);
+}
+
+.img_cover {
+  object-fit: cover;
+}
+
+.img_cover_background {
+  object-fit: cover;
+  background-image: url("assets/img/loading.gif");
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
 }

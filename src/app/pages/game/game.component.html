@@ -1,31 +1,33 @@
  @if (juego_deta.length === 0) {
 
-<app-loading />
+<app-loading/>
 
 } @else {
 
 <article class='mx-2'>
-  <h1 class='card-body card-title bg-base-200 uppercase shadow-xl'>{{ juego_deta[0].nombre }}</h1>
+  <h1 class='card-body card-title bg-base-200 uppercase shadow-xl'>{{juego_deta[0].nombre}}</h1>
 
   <div class='my-2'>
-    <a class='btn btn-ghost uppercase' href>Juego</a>
+    <button [routerLink]="['/game', juego_deta[0].id]" class='btn btn-ghost uppercase'>Juego</button>
 
     @if (juego_deta[0].cant_guias) {
-    <a class='btn btn-ghost uppercase' href>Guia Time Line</a>
+    <button (click)="click_guide()" class='btn btn-ghost uppercase' href>Guia Time Line</button>
     }
 
     @if (juego_deta[0].cant_personaes) {
-    <a class='btn btn-ghost uppercase' href>Personajes</a>
+    <button (click)="click_personaes()" class='btn btn-ghost uppercase' href>Personajes</button>
     }
 
     @if (juego_deta[0].cant_fuentes) {
-    <a class='btn btn-ghost uppercase' href>Fuentes</a>
+    <button (click)="click_source()" class='btn btn-ghost uppercase' href>Fuentes</button>
     }
   </div>
 
-  <p class='indent-8 p-4 bg-base-200 shadow-md mb-4'>{{ juego_deta[0].descripcion }}</p>
-
-  <router-outlet></router-outlet>
+  <p class='indent-8 p-4 bg-base-200 shadow-md mb-4'>{{juego_deta[0].descripcion}}</p>
+  
+  <div class="grid">
+    <router-outlet></router-outlet>
+  </div>
 </article>
 
 }
