@@ -23,6 +23,7 @@ import { RouterLink } from '@angular/router';
 })
 export class BtnUpComponent implements OnInit {
   constructor() {}
+  
   ngOnInit(): void {}
 
   scrollToElement(): void {

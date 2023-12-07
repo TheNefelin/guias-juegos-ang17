@@ -13,8 +13,7 @@ import { RouterLink } from '@angular/router';
   styles: ``
 })
 export class NavbarComponent {
-  estado: boolean = false;
-  theme: string = "night"
+  public estado: boolean = false;
 
   onChange() {
     const html = document.querySelector("html")
