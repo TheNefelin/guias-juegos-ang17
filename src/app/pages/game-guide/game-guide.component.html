@@ -62,15 +62,17 @@
 
     }
 
-    <a
-      (click)="scrollToElement('G-' + jg.id)"
-      class="grid justify-end active:scale-90 duration-300">
+    <div class="grid justify-end ">
+      <button
+        (click)="scrollToElement('G-' + jg.id)"
+        class="active:scale-90 duration-300">
       <img
         src="assets/img/hizoka.png"
         alt='Subir'
         height=100
         width=40 />
-    </a>
+    </button>
+    </div>
 
   </div>
 </div>
