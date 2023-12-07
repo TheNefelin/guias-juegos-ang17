@@ -83,5 +83,12 @@ export class GameGuideComponent implements OnInit, OnDestroy {
     return this.juego_guia_aventura_img.filter(e => e.id_aventura === id_aventura);
   };
 
+  scrollToElement(id_guia: string): void {
+    const element = document.querySelector(`#${id_guia}`);
+
+    if (element) {
+      element.scrollIntoView({ block: 'start', inline: 'nearest' });
+    };
+  };
 
 };

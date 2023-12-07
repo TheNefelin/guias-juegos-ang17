@@ -20,50 +20,57 @@
         <input
           class="checkbox checkbox-accent"
           type="checkbox"
-          (change)="checkGuia('G-' + jg.id, jg.estado)"
-        />
+          (change)="checkGuia('G-' + jg.id, jg.estado)" />
         <label class='label'>Capítulo Completado</label>
       </label>
     </div>
 
     @for (jga of filterGuiaAventura(jg.id); track $index) {
 
-      @if (jga.importante) {
+    @if (jga.importante) {
 
-      <div class='bg-accent-content p-2'>
-        <div class="form-control">
-          <label class="cursor-pointer flex items-center">
-            <input
-              class="checkbox checkbox-accent"
-              type="checkbox"
-              (change)="checkAventura(jga.id)"
-            />
-            <label class='label'>{{jga.descripcion}}</label>
-          </label>
-        </div>
+    <div class='bg-accent-content p-2'>
+      <div class="form-control">
+        <label class="cursor-pointer flex items-center">
+          <input
+            class="checkbox checkbox-accent"
+            type="checkbox"
+            (change)="checkAventura(jga.id)" />
+          <label class='label'>{{jga.descripcion}}</label>
+        </label>
       </div>
+    </div>
 
-      } @else {
+    } @else {
 
-      <p>✓ {{jga.descripcion}}</p>
-      
-      }
-
-      @for (jgai of filterGuiaAventuraImg(jga.id); track jgai.id) {
-        
-      <div class='my-4 flex flex-wrap gap-4 justify-center'>
-        <img
-          class='shadow-md'
-          ngSrc={{jgai.img_url}}
-          alt="Imagen de Guia"
-          height="500"
-          width="500"
-        />
-      </div>
-
-      }
+    <p>✓ {{jga.descripcion}}</p>
 
     }
+
+    @for (jgai of filterGuiaAventuraImg(jga.id); track jgai.id) {
+
+    <div class='my-4 flex flex-wrap gap-4 justify-center'>
+      <img
+        class='shadow-md'
+        ngSrc={{jgai.img_url}}
+        alt="Imagen de Guia"
+        height="500"
+        width="500" />
+    </div>
+
+    }
+
+    }
+
+    <a
+      (click)="scrollToElement('G-' + jg.id)"
+      class="grid justify-end active:scale-90 duration-300">
+      <img
+        src="assets/img/hizoka.png"
+        alt='Subir'
+        height=100
+        width=40 />
+    </a>
 
   </div>
 </div>

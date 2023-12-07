@@ -7,7 +7,7 @@ import { Component } from '@angular/core';
   template: `
     <button
       (click)="handle_click()"
-      class='bg-base-100/10 rounded-full backdrop-blur-sm fixed z-10 flex justify-center w-20'>
+      class='bg-base-100/10 rounded-full backdrop-blur-sm fixed z-10 flex justify-center w-20 active:scale-90 duration-300'>
       <img
         class="m-0 p-0 flip_pokemon"
         src="assets/img/150.webp"
