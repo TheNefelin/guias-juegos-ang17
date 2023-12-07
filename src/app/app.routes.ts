@@ -19,5 +19,5 @@ export const routes: Routes = [
       { path: "source", component: GameSourceComponent },
     ]
   },
-  { path: "**", pathMatch: 'full', component: NotFoundComponent },
+  // { path: "**", pathMatch: 'full', component: NotFoundComponent },
 ];

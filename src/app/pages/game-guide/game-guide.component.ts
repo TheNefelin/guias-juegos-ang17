@@ -1,12 +1,13 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { Subscription } from 'rxjs';
+import { Subject, Subscription, forkJoin, switchMap, takeUntil } from 'rxjs';
 import { DataService } from '../../service/data.service';
 import { JuegoGuia } from '../../interfaces/juego-guia';
 import { JuegoGuiaAventura } from '../../interfaces/juego-guia-aventura';
 import { JuegoGuiaAventuraImg } from '../../interfaces/juego-guia-aventura-img';
 import { LoadingComponent } from '../../components/loading/loading.component';
 import { NgOptimizedImage } from '@angular/common';
+import { JuegoBackground } from '../../interfaces/juego-background';
 
 @Component({
   selector: 'app-game-guide',
@@ -19,17 +20,13 @@ import { NgOptimizedImage } from '@angular/common';
   styles: ``
 })
 export class GameGuideComponent implements OnInit, OnDestroy {
-  id_juego: number = 0;
-  check_guia: boolean = false;
-  check_aventura: boolean = false;
-
-  subscri_guia?: Subscription;
-  subscri_guia_aventura?: Subscription;
-  subscri_guia_aventura_img?: Subscription;
-
-  juego_guia: JuegoGuia[] = [];
-  juego_guia_aventura: JuegoGuiaAventura[] = [];
-  juego_guia_aventura_img: JuegoGuiaAventuraImg[] = [];
+  public id_juego: number = 0;
+  public check_guia: boolean = false;
+  public check_aventura: boolean = false;
+  public juego_guia: JuegoGuia[] = [];
+  public juego_guia_aventura: JuegoGuiaAventura[] = [];
+  public juego_guia_aventura_img: JuegoGuiaAventuraImg[] = [];
+  private destroy$ = new Subject<void>();
 
   constructor(
     private activated_route: ActivatedRoute,
@@ -37,27 +34,27 @@ export class GameGuideComponent implements OnInit, OnDestroy {
   ) { }
 
   ngOnInit(): void {
-    this.activated_route.params.subscribe(param => {
-      isNaN(Number(param["id"])) ? this.id_juego = 0 : this.id_juego = Number(param["id"]);
-    
-      this.subscri_guia = this.data_service.getGame_Guia(this.id_juego, "n").subscribe((data: JuegoGuia[]) => {
-        this.juego_guia = data;
-      });
+    this.activated_route.params.pipe(
+      takeUntil(this.destroy$),
+      switchMap(param => {
+        this.id_juego = isNaN(Number(param["id"])) ? 0 : Number(param["id"]);
 
-      this.subscri_guia_aventura = this.data_service.getGame_Guia_Aventura(this.id_juego, "n").subscribe((data: JuegoGuiaAventura[]) => {
-        this.juego_guia_aventura = data;
-      });
-
-      this.subscri_guia_aventura_img = this.data_service.getGame_Guia_Aventura_Img(this.id_juego).subscribe((data: JuegoGuiaAventuraImg[]) => {
-        this.juego_guia_aventura_img = data;
-      });
+        return forkJoin([
+          this.data_service.getGame_Guia(this.id_juego, "n"),
+          this.data_service.getGame_Guia_Aventura(this.id_juego, "n"),
+          this.data_service.getGame_Guia_Aventura_Img(this.id_juego),
+        ]);
+      }),
+    ).subscribe(([juegoGuia, juegoGuiaAventura, juegoGuiaAventuraImg]) => {
+      this.juego_guia = juegoGuia;
+      this.juego_guia_aventura = juegoGuiaAventura;
+      this.juego_guia_aventura_img = juegoGuiaAventuraImg;
     });
   };
 
   ngOnDestroy(): void {
-    this.subscri_guia?.unsubscribe();
-    this.subscri_guia_aventura?.unsubscribe();
-    this.subscri_guia_aventura_img?.unsubscribe();
+    this.destroy$.next();
+    this.destroy$.complete();
   };
 
   checkGuia(id: string, estado: boolean) {

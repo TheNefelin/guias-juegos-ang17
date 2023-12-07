@@ -4,7 +4,7 @@ import { DataService } from '../../service/data.service';
 import { JuegoGuiaPersonaje } from '../../interfaces/juego-guia-personaje';
 import { LoadingComponent } from '../../components/loading/loading.component';
 import { NgOptimizedImage } from '@angular/common';
-import { Subscription } from 'rxjs';
+import { Subject, switchMap, takeUntil } from 'rxjs';
 
 @Component({
   selector: 'app-game-character',
@@ -17,9 +17,9 @@ import { Subscription } from 'rxjs';
   styles: ``
 })
 export class GameCharacterComponent implements OnInit {
-  id_juego: number = 0;
-  juego_personaje: JuegoGuiaPersonaje[] = [];
-  subscripcion?: Subscription;
+  public id_juego: number = 0;
+  public juego_personaje: JuegoGuiaPersonaje[] = [];
+  private destroy$ = new Subject<void>();
 
   constructor(
     private activated_route: ActivatedRoute, 
@@ -27,16 +27,15 @@ export class GameCharacterComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.activated_route.params.subscribe(param => {
-      isNaN(Number(param["id"])) ? this.id_juego = 0 : this.id_juego = Number(param["id"]);
+    this.activated_route.params.pipe(
+      takeUntil(this.destroy$),
+      switchMap(param => this.data_service.getGame_Guia_Personaje_ByIdGame(isNaN(Number(param["id"])) ? 0 : Number(param["id"]))),
+    ).subscribe((data: JuegoGuiaPersonaje[]) => this.juego_personaje = data);
+  };
 
-      this.subscripcion = this.data_service.getGame_Guia_Personaje_ByIdGame(this.id_juego).subscribe((data: JuegoGuiaPersonaje[]) => {
-        this.juego_personaje = data;
-      });
-    });
-  };
-  
   ngOnDestroy(): void {
-    this.subscripcion?.unsubscribe();
+    this.destroy$.next();
+    this.destroy$.complete();
   };
+
 };

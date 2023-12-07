@@ -22,14 +22,14 @@ export class GameHomeComponent implements OnInit, OnDestroy {
   private destroy$ = new Subject<void>();
 
   constructor(
-    private activatedRoute: ActivatedRoute, 
+    private activated_route: ActivatedRoute, 
     private data_service: DataService,
   ) { }
   
   ngOnInit(): void {
-    this.activatedRoute.params.pipe(
+    this.activated_route.params.pipe(
       takeUntil(this.destroy$),
-      switchMap(param => this.data_service.getGameBackground_ByIdGame(isNaN(Number(param["id"])) ? 0 : Number(param["id"])))
+      switchMap(param => this.data_service.getGameBackground_ByIdGame(isNaN(Number(param["id"])) ? 0 : Number(param["id"]))),
     ).subscribe((data: JuegoBackground[]) => this.juego_background = data);
   };
 
