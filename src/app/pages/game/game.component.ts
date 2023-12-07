@@ -59,10 +59,10 @@ export class GameComponent implements OnInit, OnDestroy {
   }
 
   navPersonaes() {
-    // this.router.navigate(["game", this.id_juego , "character", {id: this.id_juego}])
+    this.router.navigate(["game", this.id_juego , "character", {id: this.id_juego}])
   }
 
   navSource() {
-    // this.router.navigate(["game", this.id_juego , "source", {id: this.id_juego}])
+    this.router.navigate(["game", this.id_juego , "source", {id: this.id_juego}])
   }
 };

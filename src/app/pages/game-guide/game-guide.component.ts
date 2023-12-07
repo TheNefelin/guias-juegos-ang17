@@ -87,7 +87,7 @@ export class GameGuideComponent implements OnInit, OnDestroy {
     const element = document.querySelector(`#${id_guia}`);
 
     if (element) {
-      element.scrollIntoView({ block: 'start', inline: 'nearest' });
+      element.scrollIntoView({ behavior: 'smooth', block: 'start', inline: 'nearest' });
     };
   };
 
