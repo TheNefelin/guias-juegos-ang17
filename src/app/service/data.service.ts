@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Juego } from '../interfaces/juego';
@@ -30,6 +30,24 @@ export class DataService {
     return this.http.get<JuegoBackground[]>(`${this.#apiUrl}/gj_background_img/${id}`)
   }
 
+  getGame_Guia(id: number, user: string): Observable<JuegoGuia[]> {
+    const params = new HttpParams()
+    .set('user', user);
+
+    return this.http.get<JuegoGuia[]>(`${this.#apiUrl}/gj_guias/${id}`, { params: params })
+  }
+
+  getGame_Guia_Aventura(id: number, user: string): Observable<JuegoGuiaAventura[]> {
+    const params = new HttpParams()
+    .set('user', user);
+
+    return this.http.get<JuegoGuiaAventura[]>(`${this.#apiUrl}/gj_aventuras/${id}`, { params: params })
+  }
+
+  getGame_Guia_Aventura_Img(id: number): Observable<JuegoGuiaAventuraImg[]> {
+    return this.http.get<JuegoGuiaAventuraImg[]>(`${this.#apiUrl}/gj_aventuras_img/${id}`)
+  }
+
   getGame_Guia_Fuente_ByIdGame(id: number): Observable<JuegoGuiaFuente[]> {
     return this.http.get<JuegoGuiaFuente[]>(`${this.#apiUrl}/gj_fuentes/${id}`)
   }
@@ -37,17 +55,5 @@ export class DataService {
   getGame_Guia_Personaje_ByIdGame(id: number): Observable<JuegoGuiaPersonaje[]> {
     return this.http.get<JuegoGuiaPersonaje[]>(`${this.#apiUrl}/gj_personajes/${id}`)
   }
-
-  // getAllGame_Guia(): Observable<JuegoGuia[]> {
-  //   return this.http.get<JuegoGuia[]>(this.#apiUrl + "/gj_background_img")
-  // }
-
-  // getAllGame_Guia_Aventura(): Observable<JuegoGuiaAventura[]> {
-  //   return this.http.get<JuegoGuiaAventura[]>(this.#apiUrl + "/gj_aventuras")
-  // }
-
-  // getAllGame_Guia_Aventura_Img(): Observable<JuegoGuiaAventuraImg[]> {
-  //   return this.http.get<JuegoGuiaAventuraImg[]>(this.#apiUrl + "/gj_aventuras_img")
-  // }
 
 }
