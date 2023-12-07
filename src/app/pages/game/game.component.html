@@ -11,15 +11,15 @@
     <button [routerLink]="['/game', juego_deta[0].id]" class='btn btn-ghost uppercase'>Juego</button>
 
     @if (juego_deta[0].cant_guias) {
-    <button (click)="click_guide()" class='btn btn-ghost uppercase' href>Guia Time Line</button>
+    <button (click)="navGuide()" class='btn btn-ghost uppercase' href>Guia Time Line</button>
     }
 
     @if (juego_deta[0].cant_personaes) {
-    <button (click)="click_personaes()" class='btn btn-ghost uppercase' href>Personajes</button>
+    <button (click)="navPersonaes()" class='btn btn-ghost uppercase' href>Personajes</button>
     }
 
     @if (juego_deta[0].cant_fuentes) {
-    <button (click)="click_source()" class='btn btn-ghost uppercase' href>Fuentes</button>
+    <button (click)="navSource()" class='btn btn-ghost uppercase' href>Fuentes</button>
     }
   </div>
 

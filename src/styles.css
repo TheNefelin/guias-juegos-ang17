@@ -20,7 +20,7 @@
 
 html {
   font-family: 'SemiBold';
-  scroll-behavior: smooth;
+  /* scroll-behavior: smooth; */
 }
 
 body::-webkit-scrollbar{

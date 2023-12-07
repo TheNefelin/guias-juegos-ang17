@@ -1,31 +1,31 @@
 <span id="side_bar">
-  @if (juegos.length === 0) {
+  @if ((juegos$ | async)?.length === 0) {
 
-  <app-loading/>
+  <app-loading />
 
   } @else {
 
   <ul class="bg-base-100 h-full menu menu-xs pr-0">
-    @for (juego of juegos; track juego.id) {
+    @for (juego of juegos$ | async; track juego.id) {
+
     <li class='mb-2'>
       <a [routerLink]="['/game/', juego.id]">
         <div class="avatar grid place-items-center">
-          <div ng class="w-20 h-20 rounded-xl shadow-md">
+          <div ng class="w-20 h-20 rounded-xl">
             <img
               class="img_cover_background"
-              ngSrc={{juego.img_cover}}
+              [src]="juego.img_cover"
               alt={{juego.nombre}}
               height="250"
-              width="250"
-              priority
-            >
+              width="auto"
+              priority>
           </div>
           <p>{{juego.nombre}}</p>
         </div>
       </a>
     </li>
+
     }
   </ul>
   }
-
 </span>

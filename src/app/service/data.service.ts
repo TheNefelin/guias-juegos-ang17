@@ -18,7 +18,7 @@ export class DataService {
 
   constructor(private http: HttpClient) {}
 
-  getGame_All(): Observable<Juego[]> {
+  getGame$(): Observable<Juego[]> {
     return this.http.get<Juego[]>(`${this.#apiUrl}/gj_juegos`);
   }
 
@@ -26,7 +26,7 @@ export class DataService {
     return this.http.get<JuegoDeta[]>(`${this.#apiUrl}/gj_juegos/${id}`);
   }
 
-  getGame_Background_ByIdGame(id: number): Observable<JuegoBackground[]> {
+  getGameBackground_ByIdGame(id: number): Observable<JuegoBackground[]> {
     return this.http.get<JuegoBackground[]>(`${this.#apiUrl}/gj_background_img/${id}`)
   }
 

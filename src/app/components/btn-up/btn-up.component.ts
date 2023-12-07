@@ -29,7 +29,7 @@ export class BtnUpComponent implements OnInit {
     const element = document.querySelector(`#id_body`);
 
     if (element) {
-      element.scrollIntoView({ block: 'start', inline: 'nearest' });
+      element.scrollIntoView({ behavior: 'smooth', block: 'start', inline: 'nearest' });
     }
   }
 }

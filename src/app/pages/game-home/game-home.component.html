@@ -7,10 +7,10 @@
   @for (item of juego_background; track item.id) {
   <img 
     class='m-auto shadow-xl mb-4' 
-    ngSrc={{item.img_url}} 
+    [src]="item.img_url" 
     alt='background'
     height="1000" 
-    width="1000" 
+    width="auto" 
     priority 
   />
   }
