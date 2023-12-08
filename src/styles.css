@@ -18,6 +18,12 @@
   }
 }
 
+@media (width < 400px){
+  html {
+    font-size: 12px;
+  }
+}
+
 html {
   font-family: 'SemiBold';
   /* scroll-behavior: smooth; */

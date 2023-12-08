@@ -29,6 +29,7 @@ module.exports = {
     require("daisyui")
   ],
   ...
+}
 ```
 
 * in the styles.css file add directives
