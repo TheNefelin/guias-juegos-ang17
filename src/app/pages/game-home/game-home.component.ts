@@ -1,7 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { JuegoBackground } from '../../interfaces/juego-background';
-import { DataService } from '../../service/data.service';
+import { DataService } from '../../services/data.service';
 import { CommonModule, NgOptimizedImage } from '@angular/common';
 import { LoadingComponent } from '../../components/loading/loading.component';
 import { Subject, Subscription, switchMap, takeUntil } from 'rxjs';

@@ -11,7 +11,6 @@ import { JuegoBackground } from '../interfaces/juego-background';
 })
 export class ApiDataService {
   private apiUrl = environment.API_URL
-
   private juego$ = new Subject<Juego[]>().asObservable()
   private juego_background$ = new Subject<JuegoBackground[]>().asObservable()
 

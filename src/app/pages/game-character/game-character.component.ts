@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { DataService } from '../../service/data.service';
+import { DataService } from '../../services/data.service';
 import { JuegoGuiaPersonaje } from '../../interfaces/juego-guia-personaje';
 import { LoadingComponent } from '../../components/loading/loading.component';
 import { NgOptimizedImage } from '@angular/common';

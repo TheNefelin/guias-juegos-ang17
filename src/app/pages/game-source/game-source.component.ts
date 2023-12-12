@@ -2,7 +2,7 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { LoadingComponent } from '../../components/loading/loading.component';
 import { JuegoGuiaFuente } from '../../interfaces/juego-guia-fuente';
 import { ActivatedRoute } from '@angular/router';
-import { DataService } from '../../service/data.service';
+import { DataService } from '../../services/data.service';
 import { Subject, switchMap, takeUntil } from 'rxjs';
 
 @Component({

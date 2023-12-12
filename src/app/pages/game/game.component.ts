@@ -1,6 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, Route, Router, RouterLink, RouterOutlet } from '@angular/router';
-import { DataService } from '../../service/data.service';
+import { DataService } from '../../services/data.service';
 import { JuegoDeta } from '../../interfaces/juego-deta';
 import { LoadingComponent } from '../../components/loading/loading.component';
 import { Observable, Subject, Subscription, switchMap, takeUntil } from 'rxjs';

@@ -1,7 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Subject, Subscription, forkJoin, switchMap, takeUntil } from 'rxjs';
-import { DataService } from '../../service/data.service';
+import { DataService } from '../../services/data.service';
 import { JuegoGuia } from '../../interfaces/juego-guia';
 import { JuegoGuiaAventura } from '../../interfaces/juego-guia-aventura';
 import { JuegoGuiaAventuraImg } from '../../interfaces/juego-guia-aventura-img';
