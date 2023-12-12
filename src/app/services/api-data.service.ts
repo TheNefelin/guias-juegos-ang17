@@ -2,15 +2,14 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Juego } from '../interfaces/juego';
 import { environment } from '../../environments/environment';
-import { BehaviorSubject, Observable, Subject, map, share, shareReplay } from 'rxjs';
-import { JuegoDeta } from '../interfaces/juego-deta';
+import { Observable, Subject, map, shareReplay } from 'rxjs';
 import { JuegoBackground } from '../interfaces/juego-background';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ApiDataService {
-  private apiUrl = environment.API_URL
+  private apiUrl: string = environment.API_URL
   private juego$ = new Subject<Juego[]>().asObservable()
   private juego_background$ = new Subject<JuegoBackground[]>().asObservable()
 
