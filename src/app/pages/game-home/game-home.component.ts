@@ -2,7 +2,7 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { JuegoBackground } from '../../interfaces/juego-background';
 import { DataService } from '../../service/data.service';
-import { NgOptimizedImage } from '@angular/common';
+import { CommonModule, NgOptimizedImage } from '@angular/common';
 import { LoadingComponent } from '../../components/loading/loading.component';
 import { Subject, Subscription, switchMap, takeUntil } from 'rxjs';
 import { ApiDataService } from '../../services/api-data.service';
@@ -11,34 +11,25 @@ import { ApiDataService } from '../../services/api-data.service';
   selector: 'app-game-home',
   standalone: true,
   imports: [
+    CommonModule,
     NgOptimizedImage,
     LoadingComponent,
   ],
   templateUrl: './game-home.component.html',
   styles: ``
 })
-export class GameHomeComponent implements OnInit, OnDestroy {
-  private background_sub!: Subscription
-  juegoBackground?: JuegoBackground[]
+export class GameHomeComponent {
+
+  juegoBackground$ = this.activatedRoute.params.pipe(
+    switchMap(param => {
+      return this.apiDataService.getJuegoBackground_ById(isNaN(param["id"]) ? 0 : Number(param["id"]))
+    })
+  )
 
   constructor(
     private apiDataService: ApiDataService,
     private activatedRoute: ActivatedRoute,
   ) {}
-
-  ngOnInit(): void {
-    this.background_sub = this.activatedRoute.params.pipe(
-      switchMap(param => {
-        return this.apiDataService.getJuegoBackground_ById(isNaN(param["id"]) ? 0 : Number(param["id"]))
-      })
-    ).subscribe((data: JuegoBackground[]) => {
-      this.juegoBackground = data
-    })
-  }
-
-  ngOnDestroy(): void {
-    this.background_sub?.unsubscribe()
-  }
 
   // public id_juego: number = 0;
   // public juego_background: JuegoBackground[] = [];

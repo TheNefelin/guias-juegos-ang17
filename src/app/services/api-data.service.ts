@@ -29,7 +29,7 @@ export class ApiDataService {
   }
 
   getJuegoBackground_ById(id: number): Observable<JuegoBackground[]> {
-    return this.juego_background$.pipe(map(backgrounds => backgrounds.filter(background => background.id === id)))
+    return this.juego_background$.pipe(map(backgrounds => backgrounds.filter(background => background.id_juego === id)))
   }
 
 }
