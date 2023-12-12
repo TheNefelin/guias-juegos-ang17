@@ -9,7 +9,7 @@ import { JuegoBackground } from '../interfaces/juego-background';
   providedIn: 'root'
 })
 export class ApiDataService {
-  private apiUrl: string = environment.API_URL
+  private apiUrl = environment.API_URL
   private juego$ = new Subject<Juego[]>().asObservable()
   private juego_background$ = new Subject<JuegoBackground[]>().asObservable()
 
