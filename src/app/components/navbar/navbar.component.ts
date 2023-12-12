@@ -1,11 +1,16 @@
 import { Component } from '@angular/core';
-import { BtnPokemonComponent } from '../btn-pokemon/btn-pokemon.component';
 import { RouterLink } from '@angular/router';
+import { Observable } from 'rxjs';
+import { BtnPokemonComponent } from '../btn-pokemon/btn-pokemon.component';
+import { AuthGoogleService } from '../../services/auth-google.service';
+import { GoogleUser } from '../../interfaces/google-user';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-navbar',
   standalone: true,
   imports: [ 
+    CommonModule,
     RouterLink,
     BtnPokemonComponent 
   ],
@@ -13,7 +18,20 @@ import { RouterLink } from '@angular/router';
   styles: ``
 })
 export class NavbarComponent {
-  public estado: boolean = false;
+  userInfo$?: Observable<GoogleUser>
+  estado: boolean = false;
+
+  constructor(private authGoogleService: AuthGoogleService) {
+    this.userInfo$ = authGoogleService.getUserInfo;
+  }
+
+  logIn(){
+    this.authGoogleService.logIn()
+  }
+
+  logOut() {
+    this.authGoogleService.logOut()
+  }
 
   onChange() {
     const html = document.querySelector("html")

@@ -3,9 +3,11 @@
 <section class="flex mt-4">
   <app-sidebar/>
 
-  <div class="w-full">
-    <router-outlet></router-outlet>
-  </div>
+  @defer {
+    <div class="w-full">
+      <router-outlet></router-outlet>
+    </div>
+  }
 </section>
 
 <app-btn-up/>

@@ -1,15 +1,17 @@
 # Guias Juegos Angular 17
 
-### First Steps
+### First Steps [Angular Dev](https://angular.dev) 
 * validate version
 * update version
 * create project
+* google auth [Google Console](https://console.cloud.google.com/apis) & [Google oAuth2](https://developers.google.com/identity/openid-connect/openid-connect)
 * run server
 ```
 ng version
 npm install -g @angular/cli@latest
 ng new project-name
-ng serve [or] npm start
+npm install angular-oauth2-oidc
+ng serve
 ```
 
 ### Install Tailwind CSS & DaisyUI [Tailwind CSS](https://tailwindcss.com) [Daisy UI](https://daisyui.com)
@@ -19,7 +21,7 @@ npx tailwindcss init
 npm i -D daisyui@latest
 ```
 
-* in the tailwind.config.js file add...
+1. in the tailwind.config.js file add...
 ```
 module.exports = {
   content: [
@@ -32,7 +34,7 @@ module.exports = {
 }
 ```
 
-* in the styles.css file add directives
+2. in the styles.css file add directives
 ```
 @tailwind base;
 @tailwind components;
@@ -40,13 +42,24 @@ module.exports = {
 ```
 
 ### Some Commands
+* Create Components
+* Create Interfaces
+* Create Services
+* Create Modules
+* environments
+* .env [doc](https://github.com/chihab/ngx-env)
 ```
-ng g c comp_name  //Create Components
-ng g i inte_name  //Create Interfaces
-ng g s serv_name  //Create Services
-ng g m modu_name  //Create Modules
+ng g c components/comp_name
+ng g i interfaces/inte_name
+ng g s services/serv_name
+ng g m modules/modu_name
+ng g environments
+ng add @ngx-env/builder
 ```
+> [!WARNING]
+> Use @ngx-env/builder for private environments var.
 
+<hr>
 <hr>
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 17.0.3.
