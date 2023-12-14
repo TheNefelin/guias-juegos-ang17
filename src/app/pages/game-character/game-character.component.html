@@ -1,33 +1,25 @@
-@if (juego_personaje.length ===0 ) {
+<div class='bg-base-200 mb-4 card card-side shadow-xl flex gap-4 flex-wrap justify-center p-4'>
 
-  <app-loading></app-loading>
+  @for (item of (Juego_character$ | async); track item.id) {
 
-} @else {
-
-  <div class='bg-base-200 mb-4 card card-side shadow-xl flex gap-4 flex-wrap justify-center p-4'>
-
-    @for (item of juego_personaje; track item.id) {
-  
-      <div class="card bg-base-100 shadow-xl max-w-xs w-full">
-        <figure>
-          <img
-            class='pt-4 img_cover'
-            [src]="item.img_url"
-            alt={{item.nombre}}
-            height="50"
-            width="50"
-          />
-        </figure>
-        <div class="card-body">
-          <h2 class="card-title">{{item.nombre}} {{item.id}}</h2>
-          <p>{{item.descripcion}}</p>
-        </div>
+    <div class="card bg-base-100 shadow-xl max-w-xs w-full">
+      <figure>
+        <img
+          class='pt-4 img_cover'
+          [src]="item.img_url"
+          alt={{item.nombre}}
+          height="50"
+          width="50"
+        />
+      </figure>
+      <div class="card-body">
+        <h2 class="card-title">{{item.nombre}} {{item.id}}</h2>
+        <p>{{item.descripcion}}</p>
       </div>
-  
-    }
-   
-  </div>
+    </div>
 
-}
-
-
+  } @empty {
+    <app-loading></app-loading>
+  }
+ 
+</div>

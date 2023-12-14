@@ -1,15 +1,9 @@
-@if (juego_fuentes.length === 0) {
+<div class='flex flex-col gap-1 pl-16 py-4 bg-base-200 shadow-md mb-4'>
 
-<app-loading></app-loading>
-  
-} @else {
+  @for (item of juego_fuentes$ | async; track item.id) {
+    <a class='link' target="_blank" href={{item.img_url}}>{{item.nombre}}</a>
+  } @empty {
+    <app-loading></app-loading>
+  }
 
-  <div class='flex flex-col gap-1 pl-16 py-4 bg-base-200 shadow-md mb-4'>
-
-    @for (item of juego_fuentes; track item.id) {
-      <a class='link' target="_blank" href={{item.img_url}}>{{item.nombre}}</a>
-    }
-  
-  </div>
-
-}
+</div>

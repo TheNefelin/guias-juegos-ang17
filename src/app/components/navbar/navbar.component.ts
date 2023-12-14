@@ -1,10 +1,10 @@
 import { Component } from '@angular/core';
 import { RouterLink } from '@angular/router';
+import { CommonModule } from '@angular/common';
 import { Observable } from 'rxjs';
 import { BtnPokemonComponent } from '../btn-pokemon/btn-pokemon.component';
 import { AuthGoogleService } from '../../services/auth-google.service';
 import { GoogleUser } from '../../interfaces/google-user';
-import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-navbar',
@@ -22,7 +22,7 @@ export class NavbarComponent {
   estado: boolean = false;
 
   constructor(private authGoogleService: AuthGoogleService) {
-    this.userInfo$ = authGoogleService.getUserInfo;
+    this.userInfo$ = authGoogleService.getUserInfo
   }
 
   logIn(){

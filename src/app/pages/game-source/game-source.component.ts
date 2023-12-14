@@ -1,38 +1,31 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
-import { LoadingComponent } from '../../components/loading/loading.component';
-import { JuegoGuiaFuente } from '../../interfaces/juego-guia-fuente';
+import { Component } from '@angular/core';
+import { CommonModule } from '@angular/common';
 import { ActivatedRoute } from '@angular/router';
-import { DataService } from '../../services/data.service';
-import { Subject, switchMap, takeUntil } from 'rxjs';
+import { switchMap } from 'rxjs';
+import { LoadingComponent } from '../../components/loading/loading.component';
+import { ApiDataService } from '../../services/api-data.service';
 
 @Component({
   selector: 'app-game-source',
   standalone: true,
   imports: [
+    CommonModule,
     LoadingComponent,
   ],
   templateUrl: './game-source.component.html',
   styles: ``
 })
-export class GameSourceComponent implements OnInit, OnDestroy {
-  public id_juego: number = 0;
-  public juego_fuentes: JuegoGuiaFuente[] = [];
-  private destroy$ = new Subject<void>();
+export class GameSourceComponent {
+
+  juego_fuentes$ = this.activatedRoute.params.pipe(
+    switchMap(param => {
+      return this.apiDataService.getJuegoFuente_ById(isNaN(Number(param["id"])) ? 0 : Number(param["id"]));
+    })
+  )
 
   constructor(
-    private activated_route: ActivatedRoute, 
-    private data_service: DataService,
-  ) { }
-
-  ngOnInit(): void {
-    this.activated_route.params.pipe(
-      takeUntil(this.destroy$),
-      switchMap(param => this.data_service.getGame_Guia_Fuente_ByIdGame(isNaN(Number(param["id"])) ? 0 : Number(param["id"]))),
-    ).subscribe((data: JuegoGuiaFuente[]) => this.juego_fuentes = data);
-  };
-
-  ngOnDestroy(): void {
-    this.destroy$.next();
-    this.destroy$.complete();
-  };
+    private activatedRoute: ActivatedRoute,
+    private apiDataService: ApiDataService,
+  ) {}
+  
 };

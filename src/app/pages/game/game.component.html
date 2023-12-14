@@ -1,35 +1,34 @@
- @if ((juego$ | async)?.length === 0) {
-
-<app-loading/>
-
-} @else {
+@for (item of (juego$ | async); track $index) {
 
 <article class='mx-2'>
-  <h1 class='card-body card-title bg-base-200 uppercase shadow-xl'>{{(juego$ | async)?.[0]?.nombre}}</h1>
+  <h1 class='card-body card-title bg-base-200 uppercase shadow-xl'>{{item.nombre}}</h1>
 
   <div class='my-2'>
-    <button [routerLink]="['/game', (juego$ | async)?.[0]?.id]" class='btn btn-ghost uppercase'>Juego</button>
+    <button [routerLink]="['/game', item.id]" class='btn btn-ghost uppercase'>Juego</button>
 
-    @if ((juego$ | async)?.[0]?.cant_guias) {
-    <button (click)="navGuide()" class='btn btn-ghost uppercase' href>Guia Time Line</button>
+    @if (item.cant_guias) {
+    <button (click)="navGuide()" class='btn btn-ghost uppercase' href>Guia Time
+      Line</button>
     }
 
-    @if ((juego$ | async)?.[0]?.cant_personaes) {
+    @if (item.cant_personaes) {
     <button (click)="navPersonaes()" class='btn btn-ghost uppercase' href>Personajes</button>
     }
 
-    @if ((juego$ | async)?.[0]?.cant_fuentes) {
+    @if (item.cant_fuentes) {
     <button (click)="navSource()" class='btn btn-ghost uppercase' href>Fuentes</button>
     }
   </div>
 
-  <p class='indent-8 p-4 bg-base-200 shadow-md mb-4'>{{(juego$ | async)?.[0]?.descripcion}}</p>
-  
+  <p class='indent-8 p-4 bg-base-200 shadow-md mb-4'>{{item.descripcion}}</p>
+
   <div class="grid">
-    @defer {
-      <router-outlet></router-outlet>
-    }
+    <router-outlet></router-outlet>
   </div>
 </article>
+
+} @empty {
+
+<app-loading></app-loading>
 
 }

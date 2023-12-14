@@ -1,41 +1,31 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { DataService } from '../../services/data.service';
-import { JuegoGuiaPersonaje } from '../../interfaces/juego-guia-personaje';
+import { CommonModule } from '@angular/common';
+import { switchMap } from 'rxjs';
 import { LoadingComponent } from '../../components/loading/loading.component';
-import { NgOptimizedImage } from '@angular/common';
-import { Subject, switchMap, takeUntil } from 'rxjs';
+import { ApiDataService } from '../../services/api-data.service';
 
 @Component({
   selector: 'app-game-character',
   standalone: true,
   imports: [ 
-    NgOptimizedImage,
+    CommonModule,
     LoadingComponent,
   ],
   templateUrl: './game-character.component.html',
   styles: ``
 })
-export class GameCharacterComponent implements OnInit {
-  public id_juego: number = 0;
-  public juego_personaje: JuegoGuiaPersonaje[] = [];
-  private destroy$ = new Subject<void>();
+export class GameCharacterComponent {
+
+  Juego_character$ = this.activatedRoute.params.pipe(
+    switchMap(param => {
+      return this.apiDataService.getJuegoCharacter_ById(isNaN(param["id"]) ? 0 : Number(param["id"]))
+    })
+  )
 
   constructor(
-    private activated_route: ActivatedRoute, 
-    private data_service: DataService,
-  ) { }
+    private activatedRoute: ActivatedRoute, 
+    private apiDataService: ApiDataService,
+  ) {}
 
-  ngOnInit(): void {
-    this.activated_route.params.pipe(
-      takeUntil(this.destroy$),
-      switchMap(param => this.data_service.getGame_Guia_Personaje_ByIdGame(isNaN(Number(param["id"])) ? 0 : Number(param["id"]))),
-    ).subscribe((data: JuegoGuiaPersonaje[]) => this.juego_personaje = data);
-  };
-
-  ngOnDestroy(): void {
-    this.destroy$.next();
-    this.destroy$.complete();
-  };
-
-};
+}

@@ -3,5 +3,5 @@ export interface JuegoGuiaAventura {
   descripcion: string,
   importante: boolean,
   orden: number,
-  id_guia: number
+  id_guia: number,
 }

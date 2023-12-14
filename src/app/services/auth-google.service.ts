@@ -17,7 +17,7 @@ const authConfig: AuthConfig = {
   providedIn: 'root'
 })
 export class AuthGoogleService {
-  googleUser: GoogleUser = { info: { sub: "", email: "", name: "", picture: "" }}
+  private googleUser: GoogleUser = { info: { sub: "", email: "none", name: "", picture: "" }}
   private userInfo = new BehaviorSubject<GoogleUser>(this.googleUser)
 
   constructor(
@@ -49,8 +49,8 @@ export class AuthGoogleService {
 
   logOut() {
     this.oAuthService.logOut()
-    this.userInfo.next(this.googleUser)
     this.router.navigateByUrl('/');
+    this.userInfo.next(this.googleUser)
     console.log("-- LogOut --")
   }
 

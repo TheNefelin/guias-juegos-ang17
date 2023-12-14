@@ -1,10 +1,5 @@
-@if ((juegoBackground$ | async)?.length === 0) {
+@for (item of (juego_background$ | async); track item.id) {
 
-<app-loading />
-
-} @else {
-
-  @for (item of (juegoBackground$ | async); track item.id) {
   <img 
     class='m-auto shadow-xl mb-4' 
     [src]="item.img_url" 
@@ -13,6 +8,9 @@
     width="auto" 
     priority 
   />
-  }
+
+} @empty {
+
+  <app-loading></app-loading>
 
 }

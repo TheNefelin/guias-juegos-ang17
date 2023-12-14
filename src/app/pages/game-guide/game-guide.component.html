@@ -1,4 +1,87 @@
-@if (false) {
+@for (juego of juego_guia; track juego.id) {
+
+<div class="collapse collapse-arrow bg-base-200 mb-2 shadow-md">
+  <input type="checkbox" />
+  <div
+    id="{{'G-' + juego.id}}"
+    class="collapse-title text-lg font-medium"
+    [class]="juego.estado ? 'bg-success text-success-content' : ''">
+    {{$index + 1}}.- {{juego.nombre}}
+  </div>
+
+  <div class="collapse-content">
+    <div class="form-control">
+      <label class="cursor-pointer flex items-center">
+        <input
+          #idCheckGuia
+          [checked]="juego.estado"
+          class="checkbox checkbox-accent"
+          type="checkbox"
+          (change)="checkGuia('G-' + juego.id, idCheckGuia.checked)" />
+        <label class='label'>Capítulo Completado</label>
+      </label>
+    </div>
+
+    @for (aventura of getAventura(juego.id); track aventura.id) {
+
+      @if (aventura.importante) {
+
+      <div class='bg-accent-content p-2'>
+        <div class="form-control">
+          <label class="cursor-pointer flex items-center">
+            <input
+              class="checkbox checkbox-accent"
+              type="checkbox"
+              (change)="checkAventura(aventura.id)" />
+            <label class='label'>{{aventura.descripcion}}</label>
+          </label>
+        </div>
+      </div>
+
+      } @else {
+
+      <p>✓ {{aventura.descripcion}}</p>
+
+      }
+
+      @for (jgai of getAventuraImg(aventura.id); track jgai.id) {
+
+        <div class='my-4 flex flex-wrap gap-4 justify-center'>
+          <img
+            class='shadow-md'
+            [src]="jgai.img_url"
+            alt="Imagen de Guia"
+            height="500"
+            width="500" />
+        </div>
+    
+      }
+
+    }
+    
+    <div class="grid justify-end ">
+      <button
+        (click)="scrollToElement('G-' + juego.id)"
+        class="active:scale-90 duration-300">
+      <img
+        src="assets/img/hizoka.png"
+        alt='Subir'
+        height=100
+        width=40 />
+    </button>
+    </div>
+
+  </div>
+
+</div>
+
+} @empty {
+
+<app-loading></app-loading>
+
+}
+
+<!-- @if (false) {
 
 <app-loading></app-loading>
 
@@ -79,4 +162,4 @@
 
 }
 
-}
+} -->
