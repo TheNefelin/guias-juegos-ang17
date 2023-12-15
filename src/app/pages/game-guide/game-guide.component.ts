@@ -77,14 +77,14 @@ export class GameGuideComponent implements OnInit {
     
     this.apiDataService.putCheckGuia(this.userGoogle?.info.email, this.userGoogle?.info.at_hash, idGuia, estado)
     .subscribe(res  => {
-      console.log("res: Api-Check-Guia", res)
+      res.estado ? console.log("res: Api-Check-Guia", res) : this.authGoogleService.logOut()
     })
   }
 
   checkAventura(idAventura: number, estado: boolean) {
     this.apiDataService.putCheckAventura(this.userGoogle?.info.email, this.userGoogle?.info.at_hash, idAventura, estado)
     .subscribe(res  => {
-      console.log("res: Api-Check-Aventura", res)
+      res.estado ? console.log("res: Api-Check-Aventura", res) : this.authGoogleService.logOut()
     })
   }
 
