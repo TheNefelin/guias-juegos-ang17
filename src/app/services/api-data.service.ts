@@ -32,10 +32,14 @@ export class ApiDataService {
   private juego_guia$ = new Subject<JuegoGuia[]>().asObservable()
 
   constructor(private httpClient: HttpClient) {
-    this.juego$ = this.httpClient.get<Juego[]>(`${this.apiUrl}/gj_juegos`).pipe(shareReplay(1))
-    this.juego_background$ = this.httpClient.get<JuegoBackground[]>(`${this.apiUrl}/gj_background_img`).pipe(shareReplay(1))
-    this.Juego_fuente$ = this.httpClient.get<JuegoGuiaFuente[]>(`${this.apiUrl}/gj_fuentes`).pipe(shareReplay(1))
-    this.Juego_character$ = this.httpClient.get<JuegoGuiaPersonaje[]>(`${this.apiUrl}/gj_personajes`).pipe(shareReplay(1))
+    // this.juego$ = this.httpClient.get<Juego[]>(`${this.apiUrl}/gj_juegos`).pipe(shareReplay(1))
+    // this.juego_background$ = this.httpClient.get<JuegoBackground[]>(`${this.apiUrl}/gj_background_img`).pipe(shareReplay(1))
+    // this.Juego_fuente$ = this.httpClient.get<JuegoGuiaFuente[]>(`${this.apiUrl}/gj_fuentes`).pipe(shareReplay(1))
+    // this.Juego_character$ = this.httpClient.get<JuegoGuiaPersonaje[]>(`${this.apiUrl}/gj_personajes`).pipe(shareReplay(1))
+    this.juego$ = this.httpClient.get<Juego[]>(`${this.apiUrl}/gj_juegos`)
+    this.juego_background$ = this.httpClient.get<JuegoBackground[]>(`${this.apiUrl}/gj_background_img`)
+    this.Juego_fuente$ = this.httpClient.get<JuegoGuiaFuente[]>(`${this.apiUrl}/gj_fuentes`)
+    this.Juego_character$ = this.httpClient.get<JuegoGuiaPersonaje[]>(`${this.apiUrl}/gj_personajes`)
   }
 
   getJuegos(): Observable<Juego[]> {  
