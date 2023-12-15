@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Juego } from '../interfaces/juego';
 import { environment } from '../../environments/environment';
-import { Observable, Subject, catchError, map, shareReplay } from 'rxjs';
+import { Observable, Subject, map, shareReplay } from 'rxjs';
 import { JuegoBackground } from '../interfaces/juego-background';
 import { JuegoGuiaFuente } from '../interfaces/juego-guia-fuente';
 import { JuegoGuiaPersonaje } from '../interfaces/juego-guia-personaje';
@@ -38,44 +38,36 @@ export class ApiDataService {
     this.Juego_character$ = this.httpClient.get<JuegoGuiaPersonaje[]>(`${this.apiUrl}/gj_personajes`).pipe(shareReplay(1))
   }
 
-  getJuegos(): Observable<Juego[]> {
-    console.log(`-- getJuegos_ById --`)    
+  getJuegos(): Observable<Juego[]> {  
     return this.juego$
   }
 
   getJuegos_ById(id: number): Observable<Juego[]> {
-    console.log(`-- getJuegos_ById -- (${id})`)
     return this.juego$.pipe(map(juegos => juegos.filter(juego => juego.id === id)))
   }
 
   getJuegoBackground_ById(id_juego: number): Observable<JuegoBackground[]> {
-    console.log(`-- getJuegoBackground_ById -- (${id_juego})`)
     return this.juego_background$.pipe(map(backgrounds => backgrounds.filter(background => background.id_juego === id_juego)))
   }
 
   getJuegoFuente_ById(id_juego: number): Observable<JuegoGuiaFuente[]> {
-    console.log(`-- getJuegoFuente_ById -- (${id_juego})`)
     return this.Juego_fuente$.pipe(map(fuentes => fuentes.filter(fuente => fuente.id_juego === id_juego)))
   }
 
   getJuegoCharacter_ById(id_juego: number): Observable<JuegoGuiaPersonaje[]> {
-    console.log(`-- getJuegoCharacter_ById -- (${id_juego})`)
     return this.Juego_character$.pipe(map(personajes => personajes.filter(personaje => personaje.id_juego === id_juego)))
   }
 
   getJuegoGuide_ById(id_juego: number, user: string): Observable<JuegoGuia[]> {
-    console.log(`-- getJuegoGuide_ById -- (${id_juego})`)
     this.juego_guia$ = this.httpClient.get<JuegoGuia[]>(`${this.apiUrl}/gj_guias?user=${user}`)
     return this.juego_guia$.pipe(map(guias => guias.filter(guia => guia.id_juego === id_juego)))
   } 
 
   getJuegoAdventure_ById(id_juego: number, user: string): Observable<JuegoGuiaAventura[]> {
-    console.log(`-- getJuegoAdventure_ById -- (${id_juego})`)
     return this.httpClient.get<JuegoGuiaAventura[]>(`${this.apiUrl}/gj_aventuras/${id_juego}?user=${user}`)
   } 
 
   getJuegoAdventureImg_ById(id_juego: number): Observable<JuegoGuiaAventuraImg[]> {
-    console.log(`-- getJuegoAdventureImg_ById -- (${id_juego})`)
     return this.httpClient.get<JuegoGuiaAventuraImg[]>(`${this.apiUrl}/gj_aventuras_img/${id_juego}`)
   } 
 
@@ -91,7 +83,6 @@ export class ApiDataService {
 
   putCheckAventura(addUser: string, addtoken: string, addIdAventura: number, addEstado: boolean) {
     const data = { usuario: addUser, token: addtoken, id_Aventura: addIdAventura, estado: addEstado }
-    console.log(`${addUser} - ${addtoken} - ${addIdAventura} - ${addEstado}`)
     return this.httpClient.put<ApiMsge>(`${this.apiUrl}/gj_usuarios/estado_aventura`, data, this.httpOptions)
   }
 

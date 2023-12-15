@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { Observable } from 'rxjs';
@@ -17,12 +17,14 @@ import { UserGoogle } from '../../interfaces/user-google';
   templateUrl: './navbar.component.html',
   styles: ``
 })
-export class NavbarComponent {
+export class NavbarComponent implements OnInit {
   userInfo$?: Observable<UserGoogle>
   estado: boolean = false;
 
-  constructor(private authGoogleService: AuthGoogleService) {
-    this.userInfo$ = authGoogleService.getUserInfo
+  constructor(private authGoogleService: AuthGoogleService) {}
+
+  ngOnInit(): void {
+    this.userInfo$ = this.authGoogleService.getUserInfo      
   }
 
   logIn(){
@@ -44,4 +46,5 @@ export class NavbarComponent {
       this.estado = true;
     }
   }
+
 }

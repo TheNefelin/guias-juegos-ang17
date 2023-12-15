@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { RouterLink } from '@angular/router';
 
 @Component({
@@ -21,10 +21,7 @@ import { RouterLink } from '@angular/router';
   `,
   styles: ``
 })
-export class BtnUpComponent implements OnInit {
-  constructor() {}
-  
-  ngOnInit(): void {}
+export class BtnUpComponent {
 
   scrollToElement(): void {
     const element = document.querySelector(`#id_body`);
@@ -33,4 +30,5 @@ export class BtnUpComponent implements OnInit {
       element.scrollIntoView({ behavior: 'smooth', block: 'start', inline: 'nearest' });
     }
   }
+
 }

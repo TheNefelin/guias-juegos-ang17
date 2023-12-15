@@ -18,8 +18,10 @@ import { Component } from '@angular/core';
   styles: ``
 })
 export class BtnPokemonComponent {
+  
   handle_click() {
     const sidebar = document.querySelector("#side_bar")
     sidebar?.classList.toggle("hidden")
   }
+
 }
