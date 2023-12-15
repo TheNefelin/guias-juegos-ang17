@@ -4,4 +4,5 @@ export interface JuegoGuiaAventura {
   importante: boolean,
   orden: number,
   id_guia: number,
+  estado: boolean
 }

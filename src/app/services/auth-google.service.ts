@@ -2,8 +2,9 @@ import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 import { AuthConfig, OAuthService } from 'angular-oauth2-oidc';
 import { environment } from '../../environments/environment';
-import { GoogleUser } from '../interfaces/google-user';
+import { UserGoogle } from '../interfaces/user-google';
 import { Router } from '@angular/router';
+import { ApiDataService } from './api-data.service';
 
 const authConfig: AuthConfig = {
   strictDiscoveryDocumentValidation: false,
@@ -17,11 +18,12 @@ const authConfig: AuthConfig = {
   providedIn: 'root'
 })
 export class AuthGoogleService {
-  private googleUser: GoogleUser = { info: { sub: "", email: "none", name: "", picture: "" }}
-  private userInfo = new BehaviorSubject<GoogleUser>(this.googleUser)
+  private googleUser: UserGoogle = { info: { at_hash: "",  sub: "", email: "none", name: "", picture: "" }, token: ""}
+  private userInfo = new BehaviorSubject<UserGoogle>(this.googleUser)
 
   constructor(
     private readonly oAuthService: OAuthService,
+    private apiDataService: ApiDataService,
     private router: Router,  
   ) {
     this.oAuthService.configure(authConfig)
@@ -30,7 +32,13 @@ export class AuthGoogleService {
       this.oAuthService.tryLoginImplicitFlow().then(() => {
         if (this.oAuthService.hasValidAccessToken()) {
           this.oAuthService.loadUserProfile().then(googleUser => {
-            this.userInfo.next(googleUser as GoogleUser)
+            // this.oAuthService.getIdToken()
+            this.userInfo.next(googleUser as UserGoogle)
+
+            apiDataService.postLoginBackend(this.userInfo.value.info.email, this.userInfo.value.info.at_hash)
+            .subscribe(res => {
+              console.log("GoogleAuth & ApiAuth", res)
+            })
           })
         }
       })
@@ -38,16 +46,19 @@ export class AuthGoogleService {
   }
 
   get getUserInfo() {
+    console.log("-- GETUSER --", this.googleUser)
     return this.userInfo.asObservable()
   }
 
   logIn() {
+    console.log("-- LOGIN --", this.googleUser)
     this.oAuthService.initLoginFlow()
     this.router.navigateByUrl('/');
     console.log("-- LogIn --")
   }
 
   logOut() {
+    console.log("-- LOGOUT --", this.googleUser)
     this.oAuthService.logOut()
     this.router.navigateByUrl('/');
     this.userInfo.next(this.googleUser)

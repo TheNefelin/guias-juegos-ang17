@@ -1,14 +1,15 @@
 import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { CommonModule } from '@angular/common';
-import { BehaviorSubject, Observable, exhaustAll, forkJoin, map, mergeMap, switchMap, take } from 'rxjs';
+import { forkJoin, switchMap, take } from 'rxjs';
 import { LoadingComponent } from '../../components/loading/loading.component';
 import { ApiDataService } from '../../services/api-data.service';
 import { AuthGoogleService } from '../../services/auth-google.service';
-import { GoogleUser } from '../../interfaces/google-user';
 import { JuegoGuia } from '../../interfaces/juego-guia';
 import { JuegoGuiaAventura } from '../../interfaces/juego-guia-aventura';
 import { JuegoGuiaAventuraImg } from '../../interfaces/juego-guia-aventura-img';
+import { UserInfo } from 'angular-oauth2-oidc';
+import { UserGoogle } from '../../interfaces/user-google';
 
 @Component({
   selector: 'app-game-guide',
@@ -22,7 +23,7 @@ import { JuegoGuiaAventuraImg } from '../../interfaces/juego-guia-aventura-img';
 })
 export class GameGuideComponent implements OnInit {
   id: number = 0
-  userInfo$?: Observable<GoogleUser>
+  userGoogle!: UserGoogle
   public juego_guia: JuegoGuia[] = [];
   public juego_guia_aventura: JuegoGuiaAventura[] = [];
   public juego_guia_aventura_img: JuegoGuiaAventuraImg[] = [];
@@ -33,30 +34,34 @@ export class GameGuideComponent implements OnInit {
     private apiDataService: ApiDataService,
     private authGoogleService: AuthGoogleService,
     private cdr: ChangeDetectorRef,
-  ) {
-    this.userInfo$ = authGoogleService.getUserInfo
+  ) {}
 
+  ngOnInit(): void {
     this.activatedRoute.params.pipe(
       switchMap(param => {
-        this.id = isNaN(param["id"]) ? 0 : Number(param["id"])
-        
-        return forkJoin([
-          this.apiDataService.getJuegoGuide_ById(this.id, "sliferhunter8@gmail.com"),
-          this.apiDataService.getJuegoAdventure_ById(this.id, "sliferhunter8@gmail.com"),
-          this.apiDataService.getJuegoAdventureImg_ById(this.id),
-        ])
+        this.id = isNaN(param["id"]) ? 0 : Number(param["id"]);
+  
+        // Obtén el email del usuario del BehaviorSubject
+        return this.authGoogleService.getUserInfo.pipe(
+          take(1), // Toma solo el primer valor emitido, ya que es un BehaviorSubject
+          switchMap(userInfo => {
+            this.userGoogle = userInfo || "none"; // Reemplaza con un valor por defecto si no hay información de email
+  
+            return forkJoin([
+              this.apiDataService.getJuegoGuide_ById(this.id, this.userGoogle.info.email),
+              this.apiDataService.getJuegoAdventure_ById(this.id, this.userGoogle.info.email),
+              this.apiDataService.getJuegoAdventureImg_ById(this.id),
+            ]);
+          })
+        );
       })
     ).subscribe(([juegoGuia, juegoGuiaAventura, juegoGuiaAventuraImg]) => {
       this.juego_guia = juegoGuia;
       this.juego_guia_aventura = juegoGuiaAventura;
       this.juego_guia_aventura_img = juegoGuiaAventuraImg;
-    })
+    });
   }
-
-  ngOnInit(): void {
-
-  }
-
+  
   getAventura(id_guia: number) {
     return this.juego_guia_aventura.filter(d => d.id_guia === id_guia)
   }
@@ -65,14 +70,22 @@ export class GameGuideComponent implements OnInit {
     return this.juego_guia_aventura_img.filter(d => d.id_aventura === id_aventura)
   }
   
-  checkGuia(id: string, estado: boolean) {
-    const el = document.querySelector(`#${id}`)
+  checkGuia(idTag: string, idGuia: number, estado: boolean) {
+    const el = document.querySelector(`#${idTag}`)
     estado ? el?.classList.add("bg-success", "text-success-content") : el?.classList.remove("bg-success", "text-success-content")
     this.cdr.detectChanges()
+
+    this.apiDataService.putCheckGuia(this.userGoogle?.info.email, this.userGoogle?.info.at_hash, idGuia, estado)
+    .subscribe(res  => {
+      console.log("res: Api-Check-Guia", res)
+    })
   }
 
-  checkAventura(id: number) {
-
+  checkAventura(idAventura: number, estado: boolean) {
+    this.apiDataService.putCheckAventura(this.userGoogle?.info.email, this.userGoogle?.info.at_hash, idAventura, estado)
+    .subscribe(res  => {
+      console.log("res: Api-Check-Aventura", res)
+    })
   }
 
   scrollToElement(id: string) {

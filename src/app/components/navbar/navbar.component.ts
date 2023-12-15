@@ -4,7 +4,7 @@ import { CommonModule } from '@angular/common';
 import { Observable } from 'rxjs';
 import { BtnPokemonComponent } from '../btn-pokemon/btn-pokemon.component';
 import { AuthGoogleService } from '../../services/auth-google.service';
-import { GoogleUser } from '../../interfaces/google-user';
+import { UserGoogle } from '../../interfaces/user-google';
 
 @Component({
   selector: 'app-navbar',
@@ -18,7 +18,7 @@ import { GoogleUser } from '../../interfaces/google-user';
   styles: ``
 })
 export class NavbarComponent {
-  userInfo$?: Observable<GoogleUser>
+  userInfo$?: Observable<UserGoogle>
   estado: boolean = false;
 
   constructor(private authGoogleService: AuthGoogleService) {
