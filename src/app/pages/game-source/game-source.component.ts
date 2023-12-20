@@ -23,8 +23,8 @@ export class GameSourceComponent implements OnInit {
     private activatedRoute: ActivatedRoute,
     private apiDataService: ApiDataService,
   ) {}
-  
-  ngOnInit(): void {
+
+  ngOnInit() {
     this.juego_fuentes$ = this.activatedRoute.params.pipe(
       switchMap(param => {
         return this.apiDataService.getJuegoFuente_ById(isNaN(Number(param["id"])) ? 0 : Number(param["id"]));

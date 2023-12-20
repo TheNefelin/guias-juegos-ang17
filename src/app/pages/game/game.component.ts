@@ -40,14 +40,17 @@ export class GameComponent implements OnInit {
 
   navGuide() {
     this.router.navigate(["game", this.id, "guide", { id: this.id }])
+    // this.router.navigate(["guide"], { relativeTo: this.activatedRoute, queryParams: { id: this.id } })
   }
 
   navPersonaes() {
     this.router.navigate(["game", this.id, "character", { id: this.id }])
+    // this.router.navigate(["character"], { relativeTo: this.activatedRoute, queryParams: { id: this.id } })
   }
 
   navSource() {
     this.router.navigate(["game", this.id, "source", { id: this.id }])
+    // this.router.navigate(["source"], { relativeTo: this.activatedRoute, queryParams: { id: this.id } })
   }
   
 }

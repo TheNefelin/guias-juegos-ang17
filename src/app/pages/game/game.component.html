@@ -1,4 +1,4 @@
-@for (item of (juego$ | async); track $index) {
+@for (item of (juego$ | async); track item.id) {
 
 <article class='mx-2'>
   <h1 class='card-body card-title bg-base-200 uppercase shadow-xl'>{{item.nombre}}</h1>
@@ -23,7 +23,7 @@
   <p class='indent-8 p-4 bg-base-200 shadow-md mb-4'>{{item.descripcion}}</p>
 
   <div class="grid">
-    <router-outlet></router-outlet>
+    <router-outlet [id]="item.id"></router-outlet>
   </div>
 </article>
 
